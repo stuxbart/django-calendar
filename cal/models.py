@@ -66,7 +66,8 @@ class EventManager(models.Manager):
     def available(self, request):
         return self.get_queryset().filter(calendar__in=Calendar.objects.available(request))
 
-    def by_calendar(self, request, calendar):
+    def by_calendar(self, request, calendar_id):
+        calendar = Calendar.objects.get(pk=calendar_id)
         if calendar in Calendar.objects.available(request):
             return self.get_queryset().filter(calendar=calendar)
         return self.get_queryset().none()

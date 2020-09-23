@@ -238,7 +238,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         return f'{base_url}{create_url_from_date(self.object.date)}'
 
     def form_valid(self, form):
-        if form.inscance.calendar.owner == self.requesr.user:
+        if form.instance.calendar.owner == self.request.user:
             form.instance.owner = self.request.user
             return super(EventCreateView, self).form_valid(form)
         else:
